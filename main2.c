@@ -28,16 +28,19 @@
 //Comandos de resposta
 #define NODE_SITUATION "0x200"
 
-// Definições dos tópicos
-#define ANALOG_SENSOR "tp04/g03/node/analog-sensor/value"
-#define DIGITAL_SENSOR "tp04/g03/node/digital-sensor/value"
-#define REQUEST "tp04/g03/mqtt/request/value"
-#define RESPONSE "tp04/g03/mqtt/response/value"
-#define ADDRESS "tp04/g03/node/digital-sensor/address"
-#define NODE_CONNECTION_STATUS "tp04/g03/node/status"
-#define APP_CONNECTION_STATUS "tp04/g03/app/status"
-#define ACTIVE_SENSORS "tp04/g03/node/active-sensors"
-#define TIME_INTERVAL "tp04/g03/node/time-interval"
+// Definições dos tópicos de comunicação com a ORANGE PI
+#define RESPONSE "tp04/g03/mqtt/response/value"              #Respostas da NODE
+
+// Definições dos tópicos de comunicação com a NODE
+#define REQUEST "tp04/g03/mqtt/request/value"                #Enviar algum comando de requisição
+#define ANALOG_SENSOR "tp04/g03/node/analog-sensor/value"    #Receber a medição analogico
+#define DIGITAL_SENSOR "tp04/g03/node/digital-sensor/value"  #Receber as medições digitais       
+#define NODE_CONNECTION_STATUS "tp04/g03/node/status"        #Receber o status da conexão com a NODE
+#define ACTIVE_SENSORS "tp04/g03/node/active-sensors"        #Enviar a configuração dos sensores digitais
+#define TIME_INTERVAL "tp04/g03/node/time-interval"          #Enviar o intervalo de atualização dos sensores
+
+// Definções dos topicos de comunicação com o APP
+#define APP_CONNECTION_STATUS "tp04/g03/app/status"          #Receber o status de conexão com o APP
 
 
 // Definições dos endereços dos sensores digitais
@@ -775,12 +778,12 @@ void mainMenu(){
 				break;
 			case 6:
 				lcdHome(lcd);
-				lcdPuts(lcd,"     HORARIO     ");
+				lcdPuts(lcd,"    HISTORICO   ");
 				lcdPosition(lcd,0,1);
-				lcdPrintf(lcd,"    %s    ",timeLastValueDigitalSensors);
+				lcdPrintf(lcd,"                ");
 				isPressed(BUTTON_2,increment,&currentMenuOption,7,1);
 				isPressed(BUTTON_1,decrement,&currentMenuOption,7,1);
-				enter(BUTTON_3,connectionStatusMenu);
+				enter(BUTTON_3,historyMenu);
 				break;
 			case 7:
 				lcdHome(lcd);
